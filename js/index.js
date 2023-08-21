@@ -20,7 +20,7 @@ function setEntryANdTotal (productName,productprice){
     p.innerHTML = `${count+1}. ${product}`
     entryArea.appendChild(p) 
 
-    const totalPriceElement= document.getElementById('total-price')
+    const totalPriceElement = document.getElementById('total-price')
     const previoustotalPrice = getElementPrice('total-price')
 
     const newTotalPrice = previoustotalPrice + productPrice
@@ -28,6 +28,8 @@ function setEntryANdTotal (productName,productprice){
 
     const discountElement = document.getElementById('discount')
     let totalElement = document.getElementById('total')
+    totalElement.innerText = newTotalPrice.toFixed(2)
+
     const previousDiscountPrice = getElementPrice('discount')
     const makePurchase  = document.getElementById('btn-make-purchase')
     const apply = document.getElementById('apply-btn')
@@ -37,20 +39,19 @@ function setEntryANdTotal (productName,productprice){
         makePurchase.classList.remove('opacity-50')
     }
     if(newTotalPrice>=200){
-        const newdiscount = newTotalPrice*(20/100)
-        discountElement.innerText = newdiscount.toFixed(2)
-        const newTotal = newTotalPrice-newdiscount
-        totalElement.innerText = newTotal.toFixed(2)
         apply.removeAttribute('disabled')
         apply.classList.remove('opacity-50')
     }else{
-        totalElement.innerText = newTotalPrice.toFixed(2) 
+         
     }
+
      
 }
  function clearPurchaseHistory(){
     const entryArea = document.getElementById('entryArea')
     entryArea.innerHTML = "";
+    const coupneField = document.getElementById('coupne-field')
+    coupneField.value = "";
     setElement('total-price','00.00')
     setElement('discount','00.00')
     setElement('total','00.00')
@@ -62,4 +63,28 @@ function setEntryANdTotal (productName,productprice){
     apply.classList.add('opacity-50')
 
 }
+function getCoupne(){
+    const coupneField = document.getElementById('coupne-field')
+    const coupneValue = coupneField.value
+    
+    const totalPriceElement = document.getElementById('total-price')
+    const previoustotalPrice = getElementPrice('total-price')
+    
+
+    const discountElement = document.getElementById('discount')
+    const previousDiscountPrice = getElementPrice('discount')
+    let totalElement = document.getElementById('total')
+   
+
+    if(coupneValue=="SELL200"){
+        const newdiscount = previoustotalPrice*(20/100)
+        discountElement.innerText = newdiscount.toFixed(2)
+        const newTotal = previoustotalPrice-newdiscount
+        totalElement.innerText = newTotal.toFixed(2)
+    }else {
+        alert("Please enter a valid coupne")
+    }
+
+}
+
     
